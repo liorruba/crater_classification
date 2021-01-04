@@ -1,9 +1,8 @@
-# Crater Classification
+# Classifying Impact Craters on the Moon Using a Semi-Supervised Generative Adversarial Network
 #### Also a final project for UCLA C247: neural networks
 
 ## Summary
-In planetary remote sensing, training on imagery data is often demanding due to the need to collect hunders of samples, prepare and label them. This project adopts a semi-supervised training approach, where a GAN (generative adversarial network) is used to prepare training data and trains the binary classifier. This model is based on a [paper][https://papers.nips.cc/paper/2016/file/8a3363abe792db2d8761d6403605aeb7-Paper.pdf] by Salimans et al. from 2016. This implementation also draws some insperation from [this article](https://machinelearningmastery.com/semi-supervised-generative-adversarial-network/).
-
+Cameras aboard spacecrafts that investigate the surface of planets in the solar system have captured over tens of millions of images over the last decades. However, these datasets have never been fully analyzed due to the need to manually identify and classify topographic features in order to study the geology of the surface. Here I employ a semisupervised GAN (SGAN) model to classify impact craters from other topographic features using a small number (<50) labeled samples. I find that for topographic features, CNN based models fail when the number of labeled samples is lower than a few hundreds, while the semi-supervised method does not. This approach could be utilized to classify other topographic features on other planetary bodies, for which the labeled data is limited.
 
 ## Introduction
 Impact craters are ubiquitous throughout the solar system. These bowl-shaped depressions are formed when a meteorite, which is a rocky or an icy fragment orbiting the Sun, collides with the surface of a larger object. Upon impact, the kinetic energy of the meteorite, given as the product of its mass by its velocity squared, is invested in excavating the crater by forming a shock wave that compresses and ejects material from the surface. As a result, the final size of an impact crater is a proxy to the energy of the object that formed it and the physical properties of the target material.
@@ -43,6 +42,7 @@ Finally, I also determined through trial and error that 5 epochs are sufficient 
 From the figure below, it seems it is best to use smaller batch sizes. As an example, I choose batch size = 10 and attempt to vary the number of labeled samples over 5 epochs.  This greatly improved the model accuracy compared to the CNN model, even when fully trained (see table below). In fact, due to the similar complexion of the craters and the other topographic features, the CNN based model did not converge at all (underfit) in all cases for which the number of samples was smaller than 1000.
 
 <img src="https://github.com/liorruba/crater_classification/blob/main/accuracy.png" alt="Testing and training accuracy." width="400"/>
+Some examples from the last training epoch of the SGAN latent space
 
 | Number of samples  |  CNN accuracy (%) after 5 epochs | SGN accuracy (%) after five epochs  |
 |---|---|---|
