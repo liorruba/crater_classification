@@ -1,5 +1,5 @@
 # Crater Classification
-## Final project for UCLA C247: neural networks
+#### Also a final project for UCLA C247: neural networks
 
 ## Summary
 In planetary remote sensing, training on imagery data is often demanding due to the need to collect hunders of samples, prepare and label them. This project adopts a semi-supervised training approach, where a GAN (generative adversarial network) is used to prepare training data and trains the binary classifier. This model is based on a [paper][https://papers.nips.cc/paper/2016/file/8a3363abe792db2d8761d6403605aeb7-Paper.pdf] by Salimans et al. from 2016.
