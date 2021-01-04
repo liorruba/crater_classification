@@ -1,6 +1,8 @@
 # Classifying Impact Craters on the Moon Using a Semi-Supervised Generative Adversarial Network
 #### Also a final project for UCLA C247: neural networks
 
+In planetary remote sensing, training on imagery data is often demanding due to the need to collect hunders of samples, prepare and label them. This project adopts a semi-supervised training approach, where a GAN (generative adversarial network) is used to prepare training data and trains the binary classifier. This model is based on a [paper][https://papers.nips.cc/paper/2016/file/8a3363abe792db2d8761d6403605aeb7-Paper.pdf] by Salimans et al. from 2016.
+
 ## Summary
 Cameras aboard spacecrafts that investigate the surface of planets in the solar system have captured over tens of millions of images over the last decades. However, these datasets have never been fully analyzed due to the need to manually identify and classify topographic features in order to study the geology of the surface. Here I employ a semisupervised GAN (SGAN) model to classify impact craters from other topographic features using a small number (<50) labeled samples. I find that for topographic features, CNN based models fail when the number of labeled samples is lower than a few hundreds, while the semi-supervised method does not. This approach could be utilized to classify other topographic features on other planetary bodies, for which the labeled data is limited.
 
