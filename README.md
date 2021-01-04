@@ -31,12 +31,16 @@ The model (see right table) employs an average pooling layer after the first con
 
 The model achieves accuracy of ~95% with 5 epochs, which was sufficient for this demonstration. The learning rate (0.1%) was also chosen on basis of trial and error as a compromise between model performance and running time.
 
+![Training samples. Top: craters. Bottom: non-craters](https://github.com/liorruba/crater_classification/blob/main/craters.png)
+
 ### SGAN MODEL
 The SGAN model performed significantly better than the CNN model for the crater dataset. I first tuned the model hyperparameters to achieve a high training accuracy while maintaining a reasonable validation accuracy to avoid overfitting. As an exploratory test, I first set the number of epochs equal to 10, and set the number of labeled samples to equal the batch size. The results of this test are shown in the figure below. It is interesting to see that both the number of labeled samples and the training batch size affect the model accuracy. When the model has not enough labeled samples, it is not properly trained. When the model has too large batch sizes, it affects the model’s ability to generalize. According to Keskar+ 2016, this is related to the gradient descent’s ability to converge and high uncertainty involved when using larger batches.
 
 Finally, I also determined through trial and error that 5 epochs are sufficient to achieve good accuracy.
 
-From the figure below, it seems it is best to use smaller batch sizes. As an example, I choose batch size = 10 and attempt to vary the number of labeled samples over 5 epochs.  This greatly improved the model accuracy compared to the CNN model, even when fully trained. In fact, due to the similar complexion of the craters and the other topographic features, the CNN based model did not converge at all (underfit) in all cases for which the number of samples was smaller than 1000.
+From the figure below, it seems it is best to use smaller batch sizes. As an example, I choose batch size = 10 and attempt to vary the number of labeled samples over 5 epochs.  This greatly improved the model accuracy compared to the CNN model, even when fully trained (see table below). In fact, due to the similar complexion of the craters and the other topographic features, the CNN based model did not converge at all (underfit) in all cases for which the number of samples was smaller than 1000.
+
+
 
 | Number of samples  |  CNN accuracy (%) after 5 epochs | SGN accuracy (%) after five epochs  |
 |---|---|---|
@@ -45,3 +49,9 @@ From the figure below, it seems it is best to use smaller batch sizes. As an exa
 | 50  |  N/A  | 0.905  |
 | 100  |  N/A  | 0.917  |
 | 1000 |  0.899 |  0.945 |
+
+## Summary
+Above I employed a SGAN model to classify topographic features on the Moon. Unlike images taken in color in Earth’s atmosphere, images obtained by spacecrafts often suffer from similarities which may lead to over- and underfitting when using traditional CNNs. Additionally, the labeling process of images obtained by these spacecrafts is demanding and, in some cases, impossible. Employing SGAN assisted classification solved both problems. The large unlabeled dataset allows achieving accuracy of over 90% with only 50 labeled examples for binary classification.
+
+
+
