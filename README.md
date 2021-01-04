@@ -20,4 +20,4 @@ In a semi-supervised Generative adversarial network (SGAN), the synthetic (fake)
 
 In order to train the SGAN model, the discriminator is trained both on the supervised and the unsupervised data simultaneously.  In the unsupervised training part, the model learns features from the unlabeled data. In its supervised mode, the model classifies and labels the data.
 
-Here I implement the Salimans+ 2016 model which employs a Softmax activation function for the supervised discriminator and an exponent-sum activation for the unsupervised discriminator, $$D_unsupervised(x) = \frac{\Sum \exp{l_k(x)}}{1+\Sum{\exp{l_k(x)}}$$, which is implemented using a Lambda layer.
+Here I implement the Salimans+ 2016 model which employs a Softmax activation function for the supervised discriminator and an exponent-sum activation for the unsupervised discriminator, <img src="https://render.githubusercontent.com/render/math?math=D_{unsupervised}(x) = \frac{\Sum \exp{l_k(x)}}{1+\Sum{\exp{l_k(x)}}">, which is implemented using a Lambda layer.
