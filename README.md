@@ -31,7 +31,7 @@ The model (see right table) employs an average pooling layer after the first con
 
 The model achieves accuracy of ~95% with 5 epochs, which was sufficient for this demonstration. The learning rate (0.1%) was also chosen on basis of trial and error as a compromise between model performance and running time.
 
-![Training samples. Top: craters. Bottom: non-craters](https://github.com/liorruba/crater_classification/blob/main/craters.png)
+![Training samples. Top: craters. Bottom: non-craters](https://github.com/liorruba/crater_classification/blob/main/craters.png =200x200)
 
 ### SGAN MODEL
 The SGAN model performed significantly better than the CNN model for the crater dataset. I first tuned the model hyperparameters to achieve a high training accuracy while maintaining a reasonable validation accuracy to avoid overfitting. As an exploratory test, I first set the number of epochs equal to 10, and set the number of labeled samples to equal the batch size. The results of this test are shown in the figure below. It is interesting to see that both the number of labeled samples and the training batch size affect the model accuracy. When the model has not enough labeled samples, it is not properly trained. When the model has too large batch sizes, it affects the model’s ability to generalize. According to Keskar+ 2016, this is related to the gradient descent’s ability to converge and high uncertainty involved when using larger batches.
