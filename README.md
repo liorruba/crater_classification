@@ -21,3 +21,27 @@ In a semi-supervised Generative adversarial network (SGAN), the synthetic (fake)
 In order to train the SGAN model, the discriminator is trained both on the supervised and the unsupervised data simultaneously.  In the unsupervised training part, the model learns features from the unlabeled data. In its supervised mode, the model classifies and labels the data.
 
 Here I implement the Salimans+ 2016 model which employs a Softmax activation function for the supervised discriminator and an exponent-sum activation for the unsupervised discriminator, <img src="https://render.githubusercontent.com/render/math?math=D_{u} = \frac{\sum \exp{l_k(x)}}{1+\sum{\exp{l_k(x)}}}">, which is implemented using a Lambda layer.
+
+## Results and Discussion
+### CNN MODEL
+To evaluate the SGAN model, I compare it with a simple CNN model trained on 11,200 samples of craters and “not craters”, which were randomly selected images obtained by the camera of the Lunar Reconnaissance Orbiter spacecraft (Robinson+ 2010). The data was validated on 2800 test samples. Albeit simplified, the model achieved very good classification results – probably because of the large training dataset. 
+
+#### Layers and parameters
+The model (see right table) employs an average pooling layer after the first convolution layer in order to smooth out smaller craters from being identified. This helped the model correctly classify only features on the same scale as the feature in question. The model was trained for 5 epochs using batches of 32 images. Using a higher number of epochs resulted in overfitting that could be slightly mitigated by adding a dropout layer. A batch normalization layer did not work, potentially due to the similarities in complexion between the images. I investigated and ruled out a possibility that a gradient trap (in a bad local minimum) is causing the decrease in by testing a few different learning rates. However, this problem repeats even in both high and low learning rates.
+
+The model achieves accuracy of ~95% with 5 epochs, which was sufficient for this demonstration. The learning rate (0.1%) was also chosen on basis of trial and error as a compromise between model performance and running time.
+
+### SGAN MODEL
+The SGAN model performed significantly better than the CNN model for the crater dataset. I first tuned the model hyperparameters to achieve a high training accuracy while maintaining a reasonable validation accuracy to avoid overfitting. As an exploratory test, I first set the number of epochs equal to 10, and set the number of labeled samples to equal the batch size. The results of this test are shown in the figure below. It is interesting to see that both the number of labeled samples and the training batch size affect the model accuracy. When the model has not enough labeled samples, it is not properly trained. When the model has too large batch sizes, it affects the model’s ability to generalize. According to Keskar+ 2016, this is related to the gradient descent’s ability to converge and high uncertainty involved when using larger batches.
+
+Finally, I also determined through trial and error that 5 epochs are sufficient to achieve good accuracy.
+
+From the figure below, it seems it is best to use smaller batch sizes. As an example, I choose batch size = 10 and attempt to vary the number of labeled samples over 5 epochs.  This greatly improved the model accuracy compared to the CNN model, even when fully trained. In fact, due to the similar complexion of the craters and the other topographic features, the CNN based model did not converge at all (underfit) in all cases for which the number of samples was smaller than 1000.
+
+| Number of samples  |  CNN accuracy (%) after 5 epochs | SGN accuracy (%) after five epochs  |
+|---|---|---|
+| 10  |  N/A | 0.799  |
+| 20  |  N/A | 0.871  |
+| 50  |  N/A  | 0.905  |
+| 100  |  N/A  | 0.917  |
+| 1000 |  0.899 |  0.945 |
