@@ -24,6 +24,7 @@ In order to train the SGAN model, the discriminator is trained both on the super
 Here I implement the Salimans+ 2016 model which employs a Softmax activation function for the supervised discriminator and an exponent-sum activation for the unsupervised discriminator, <img src="https://render.githubusercontent.com/render/math?math=D_{u} = \frac{\sum \exp{l_k(x)}}{1+\sum{\exp{l_k(x)}}}">, which is implemented using a Lambda layer.
 
 <img src="https://github.com/liorruba/crater_classification/blob/main/craters.png" alt="Training samples. Top: craters. Bottom: non-craters" width="400"/>
+<img src="https://github.com/liorruba/crater_classification/blob/main/model.png" alt="Models used" width="400"/>
 
 ## Results and Discussion
 ### CNN MODEL
